@@ -4,9 +4,12 @@ import json
 
 
 class RequisicaoApi():
+''' superclasse que abstrai as requisições para a API do SOF, parseia os JSONs e gera um DataFrame com os dados,
+    além de conter a possibilidade de salvar progressivamente os dados em um .csv conforme as requisições são realizadas'''
 
     def __aux_dict_consulta(self, dict_consulta):
-
+    ''' método auxiliar interno para parsear o dicionario com os parâmetros eletivos das consultas, 
+       deixando-os no formato da url'''
         consulta = []
 
         if dict_consulta:
@@ -18,6 +21,8 @@ class RequisicaoApi():
             return ''
 
     def __requisicao(self, num_pag, consulta, dict_consulta = ''):
+    ''' método interno que realiza a requisição http para a API, retornando um objeto JSON '''
+        
 
         num_pag = str(num_pag)
         if dict_consulta:
@@ -43,6 +48,8 @@ class RequisicaoApi():
         return dados
 
     def __formater_csv(self, dados, key_dados):
+    ''' método interno para formatar o objeto json em um dicionario cujos valores são listas, de modo que se pode parseá-lo 
+    linha a linha para posteriormente escrever essas linhas em um .csv''' 
         
         if dados['metadados']['txtStatus'] == 'ERRO':
             return dados['metadados']['txtMensagemErro']
@@ -63,6 +70,8 @@ class RequisicaoApi():
             return dic_dados
         
     def __aux_csv_writer(self, colunas, dados_requisi, key_dados, consulta):
+        ''' método auxiliar interno que recebe o dicionario formatado do método __formater_csv e 
+        escreve progressivamente um csv, linha a linha'''
         
         dici = self.__formater_csv(dados_requisi, key_dados)
         
@@ -76,6 +85,8 @@ class RequisicaoApi():
                                  
 
     def puxar_todos_valores(self, key_dados, consulta, dict_consulta, csv = False):
+        ''' método do tipo main que concatena os jsons de todas as páginas retornadas pela requisição feita à api
+        e parseia eles, estruturando-os em um DataFrame, além de conter a opção de salvar o .csv '''
         
         dados = []
         
