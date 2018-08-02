@@ -4,12 +4,12 @@ import json
 
 
 class RequisicaoApi():
-''' superclasse que abstrai as requisições para a API do SOF, parseia os JSONs e gera um DataFrame com os dados,
-    além de conter a possibilidade de salvar progressivamente os dados em um .csv conforme as requisições são realizadas'''
+    ''' superclasse que abstrai as requisições para a API do SOF, parseia os JSONs e gera um DataFrame com os dados,
+        além de conter a possibilidade de salvar progressivamente os dados em um .csv conforme as requisições são realizadas'''
 
     def __aux_dict_consulta(self, dict_consulta):
-    ''' método auxiliar interno para parsear o dicionario com os parâmetros eletivos das consultas, 
-       deixando-os no formato da url'''
+        ''' método auxiliar interno para parsear o dicionario com os parâmetros eletivos das consultas, 
+           deixando-os no formato da url'''
         consulta = []
 
         if dict_consulta:
@@ -21,7 +21,7 @@ class RequisicaoApi():
             return ''
 
     def __requisicao(self, num_pag, consulta, dict_consulta = ''):
-    ''' método interno que realiza a requisição http para a API, retornando um objeto JSON '''
+        ''' método interno que realiza a requisição http para a API, retornando um objeto JSON '''
         
 
         num_pag = str(num_pag)
@@ -48,8 +48,8 @@ class RequisicaoApi():
         return dados
 
     def __formater_csv(self, dados, key_dados):
-    ''' método interno para formatar o objeto json em um dicionario cujos valores são listas, de modo que se pode parseá-lo 
-    linha a linha para posteriormente escrever essas linhas em um .csv''' 
+        ''' método interno para formatar o objeto json em um dicionario cujos valores são listas, de modo que se pode parseá-lo 
+        linha a linha para posteriormente escrever essas linhas em um .csv''' 
         
         if dados['metadados']['txtStatus'] == 'ERRO':
             return dados['metadados']['txtMensagemErro']
