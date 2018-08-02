@@ -379,7 +379,7 @@ class Empresas(RequisicaoApi):
         self.dados = self.puxar_todos_valores(self.key_dados, self.consulta, self.dict_consulta, self.csv)
         
         
-class Empresas(RequisicaoApi):
+class SubFuncoes(RequisicaoApi):
     
     def __init__(self, ano, cod_subfuncao = '', csv = False):
         
